@@ -9,6 +9,8 @@ class Confession(models.Model):
     slug = models.CharField(max_length=30, primary_key=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
+
+    target = models.CharField(max_length=30, null=False, blank=False)
     message = models.TextField(null=False, blank=False)
 
     answer = models.BooleanField(null=True, blank=False)
