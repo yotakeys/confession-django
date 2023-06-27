@@ -24,7 +24,7 @@ body {
     text-decoration: none;
 }
 
-.task {
+.confession {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,12 +34,12 @@ body {
 
 }
 
-.task-title {
+.confession-title {
     display: flex;
     overflow-x: hidden;
 }
 
-.task-title a {
+.confession-title a {
     text-decoration: none;
     color: black;
     margin-left: 10px;
@@ -63,7 +63,7 @@ body {
     border-radius: 50%;
 }
 
-.delete-task {
+.delete-confession {
     text-decoration: none;
     font-size: 30px;
 }
@@ -75,7 +75,7 @@ body {
     padding: 10px;
 }
 
-#add-task {
+#add-confession {
     color: #ffc200;
     text-decoration: none;
     font-size: 30px;

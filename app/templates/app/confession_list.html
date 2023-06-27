@@ -17,13 +17,15 @@
     {% for confession in confessions %}
     <div class="confession">
         
-        {% if confession.answer %}
+        {% if confession.answer != None %}
         <div class="confession-title">
-            <s>{{confession.slug}}</s>
+            <div class="complete-icon"></div>
+            <span>{{confession.target}}</span>
         </div>
         {% else %}
         <div class="confession-title">
-            <span>{{confession.slug}}</span>
+            <div class="incomplete-icon"></div>
+            <span>{{confession.target}}</span>
         </div>
         {% endif %}
     </div>

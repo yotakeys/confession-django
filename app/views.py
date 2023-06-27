@@ -42,6 +42,7 @@ class Register(FormView):
 
 class ConfessionList(LoginRequiredMixin, ListView):
     model = Confession
+    login_url = 'login'
     template_name = 'app/confession_list.html'
     context_object_name = "confessions"
 
