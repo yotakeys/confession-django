@@ -1,6 +1,9 @@
-from django.shortcuts import redirect
+from django import template
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 
 from django.contrib.auth.views import LoginView
@@ -51,4 +54,15 @@ class ConfessionList(LoginRequiredMixin, ListView):
         context['confessions'] = context['confessions'].filter(
             user=self.request.user)
 
+        return context
+
+
+class ConfessionUrl(TemplateView):
+    template_name = 'app/confession.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['confession'] = get_object_or_404(
+            Confession, pk=self.kwargs['slug'],)
+        print(context)
         return context

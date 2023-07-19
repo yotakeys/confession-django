@@ -32,7 +32,19 @@ class Confession(models.Model):
         super(Confession, self).clean()
         slug = self.slug
         # conditions to be met for the username length
-        if ' ' in slug:
-            raise ValidationError('Slug is not allowed to contain spaces')
+
+        def has_invalid_characters(url_string):
+            invalid_url_characters = [
+                " ", "<", ">", "#", "%", "{", "}", "|", "\\", "^", "~",
+                "[", "]", "`", "\"", "'", ";", "?", ":", "@", "=", "&"
+            ]
+
+            for char in url_string:
+                if char in invalid_url_characters:
+                    return True
+
+            return False
+        if has_invalid_characters(slug):
+            raise ValidationError('Slug contains invalid characters')
 
         return self
