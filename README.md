@@ -1,2 +1,2 @@
 # confession-django
-Web for making confeessiion using djanngo
+Web for making confeessiion using django
