@@ -7,12 +7,11 @@ from django.forms import ValidationError
 
 class Confession(models.Model):
     slug = models.CharField(max_length=64, primary_key=True)
-    urls = models.CharField(max_length=128, null=True, blank=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
-
     sender = models.CharField(max_length=30, null=False, blank=False)
     target = models.CharField(max_length=30, null=False, blank=False)
+    title = models.CharField(max_length=30, null=False, blank=False)
     message = models.TextField(null=False, blank=False)
 
     answer = models.BooleanField(null=True, blank=False)

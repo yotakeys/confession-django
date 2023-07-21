@@ -10,7 +10,13 @@
         {% else %}
         <a href="{% url 'login' %}">login</a>
         {% endif %}
+
+        <h3 style="color:black;margin-top:5px">You Have {{count}} Confession{{count|pluralize:"s"}} Created</h3>
     </div>
+</div>
+
+<div id="search-add-container">
+    <a id="add-confession" href="{% url 'confessionCreate' %}">&#x2b</a>
 </div>
 
 <div class="confession-container">

@@ -2,6 +2,7 @@ from django import template
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
@@ -22,14 +23,14 @@ class Login(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('confessions')
+        return reverse_lazy('confessionList')
 
 
 class Register(FormView):
     template_name = 'app/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('confessions')
+    success_url = reverse_lazy('confessionList')
 
     def form_valid(self, form):
         user = form.save()
@@ -53,6 +54,7 @@ class ConfessionList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['confessions'] = context['confessions'].filter(
             user=self.request.user)
+        context['count'] = context['confessions'].count()
 
         return context
 
@@ -64,5 +66,16 @@ class ConfessionUrl(TemplateView):
         context = super().get_context_data()
         context['confession'] = get_object_or_404(
             Confession, pk=self.kwargs['slug'],)
-        print(context)
+
         return context
+
+
+class CreateConfession(LoginRequiredMixin, CreateView):
+    model = Confession
+    fields = ['slug', 'sender', 'target', 'title', 'message']
+    success_url = reverse_lazy('confessionList')
+    template_name = 'app/confession_create.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateConfession, self).form_valid(form)
