@@ -1,11 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ValidationError
+from datetime import datetime
 
 # Create your models here.
 
 
 class Confession(models.Model):
+
+    answer_choices = (
+        ('YES', 'Yes'),
+        ('NO', 'No'),
+        ('IDK', "I don't know what to say"),
+        ('IWT', "I Will Think About It"),
+    )
+
     slug = models.CharField(max_length=64, primary_key=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
@@ -14,10 +23,11 @@ class Confession(models.Model):
     title = models.CharField(max_length=30, null=False, blank=False)
     message = models.TextField(null=False, blank=False)
 
-    answer = models.BooleanField(null=True, blank=False)
+    answer = models.CharField(choices=answer_choices, max_length=30)
     response = models.TextField(null=True, blank=True)
+    is_answerred = models.BooleanField(default=False)
 
-    create = models.DateTimeField(auto_now_add=True)
+    create = models.DateTimeField(default=datetime.now())
     answer_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

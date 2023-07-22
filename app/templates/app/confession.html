@@ -1,4 +1,14 @@
-{% if confession.answer != None %}
+{% if confession.is_answerred %}
 Already answered
 {% else %}
+<div> <b>Title : </b>{{ confession.title }}</div>
+<div> <b>Sender : </b>{{confession.sender}}</div>
+<div> <b>Target : </b>{{confession.target}}</div>
+<div> <b>Message : </b>{{confession.message}}</div>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.answer}}
+    {{form.response}}
+    <input class="button" type="submit" value="Send">
+</form>
 {% endif %}

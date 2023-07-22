@@ -23,7 +23,7 @@
     {% for confession in confessions %}
     <div class="confession">
         
-        {% if confession.answer != None %}
+        {% if confession.is_answerred %}
         <div class="confession-title">
             <div class="complete-icon"></div>
             <a href="{% url 'confessionUpdate' confession.slug %}">{{confession.target}}</a>

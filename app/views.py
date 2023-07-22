@@ -1,4 +1,6 @@
+from datetime import datetime
 from django import template
+from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
@@ -41,7 +43,7 @@ class Register(FormView):
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('confessions')
+            return redirect('confessionList')
         return super(Register, self).get(*args, **kwargs)
 
 
@@ -60,15 +62,19 @@ class ConfessionList(LoginRequiredMixin, ListView):
         return context
 
 
-class ConfessionUrl(TemplateView):
+class ConfessionUrl(UpdateView):
     template_name = 'app/confession.html'
+    model = Confession
+    fields = ['answer', 'response']
+    context_object_name = "confession"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['confession'] = get_object_or_404(
-            Confession, pk=self.kwargs['slug'],)
+    def get_success_url(self):
+        return reverse_lazy('confessionUrl', kwargs={'slug': self.object.slug})
 
-        return context
+    def form_valid(self, form):
+        form.instance.answer_date = datetime.now()
+        form.instance.is_answerred = True
+        return super().form_valid(form)
 
 
 class CreateConfession(LoginRequiredMixin, CreateView):

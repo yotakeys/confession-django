@@ -9,7 +9,10 @@
 
 <div class="body">
     <div> <b>Confession Url : </b><a href="{% url 'confessionUrl' confession.slug %}">{{ request.META.HTTP_HOST }}/{{confession.slug}}</a></div>
+    <div> <b>Title : </b>{{ confession.title }}</div>
     <div> <b>Created : </b>{{confession.create}}</div>
+    <div> <b>Is Answerred : </b>{{confession.is_answerred}}</div>
+    <div> <b>Sender : </b>{{confession.sender}}</div>
     <div> <b>Target : </b>{{confession.target}}</div>
     <div> <b>Answer : </b>{{confession.answer}}</div>
     <div> <b>Response : </b>{{confession.response}}</div>
