@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
@@ -79,3 +80,13 @@ class CreateConfession(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CreateConfession, self).form_valid(form)
+
+
+class DeleteConfession(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Confession
+    context_object_name = 'confession'
+    success_url = reverse_lazy('confessionList')
+    template_name = 'app/confession_delete.html'
+
+    def test_func(self):
+        return str(self.request.user.get_username()) == str(self.get_object().user)  # noqa: E501

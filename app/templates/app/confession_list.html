@@ -28,11 +28,14 @@
             <div class="complete-icon"></div>
             <span>{{confession.target}}</span>
         </div>
+        <a class="delete-confession" style="color:rgb(237, 85, 85)" href="{% url 'confessionDelete' confession.slug %}">&#215;</a>
         {% else %}
         <div class="confession-title">
             <div class="incomplete-icon"></div>
             <span>{{confession.target}}</span>
         </div>
+        <a class="delete-confession" style="color:rgb(237, 85, 85)"
+            href="{% url 'confessionDelete' confession.slug %}">&#215;</a>
         {% endif %}
     </div>
 
