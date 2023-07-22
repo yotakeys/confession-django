@@ -26,13 +26,13 @@
         {% if confession.answer != None %}
         <div class="confession-title">
             <div class="complete-icon"></div>
-            <span>{{confession.target}}</span>
+            <a href="{% url 'confessionUpdate' confession.slug %}">{{confession.target}}</a>
         </div>
         <a class="delete-confession" style="color:rgb(237, 85, 85)" href="{% url 'confessionDelete' confession.slug %}">&#215;</a>
         {% else %}
         <div class="confession-title">
             <div class="incomplete-icon"></div>
-            <span>{{confession.target}}</span>
+            <a href="{% url 'confessionUpdate' confession.slug %}">{{confession.target}}</a>
         </div>
         <a class="delete-confession" style="color:rgb(237, 85, 85)"
             href="{% url 'confessionDelete' confession.slug %}">&#215;</a>

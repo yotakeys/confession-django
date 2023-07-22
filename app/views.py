@@ -1,5 +1,5 @@
 from django import template
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
@@ -87,6 +87,17 @@ class DeleteConfession(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = 'confession'
     success_url = reverse_lazy('confessionList')
     template_name = 'app/confession_delete.html'
+
+    def test_func(self):
+        return str(self.request.user.get_username()) == str(self.get_object().user)  # noqa: E501
+
+
+class UpdateConfession(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ListView):
+    model = Confession
+    fields = ['message']
+    template_name = "app/confession_update.html"
+    success_url = reverse_lazy('confessionList')
+    context_object_name = "confession"
 
     def test_func(self):
         return str(self.request.user.get_username()) == str(self.get_object().user)  # noqa: E501

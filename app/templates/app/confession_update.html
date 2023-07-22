@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<div class="header">
+    <a href="{% url 'confessionList' %}">&#8592; Back</a>
+</div>
+
+
+<div class="body">
+    <div> <b>Confession Url : </b><a href="{% url 'confessionUrl' confession.slug %}">{{ request.META.HTTP_HOST }}/{{confession.slug}}</a></div>
+    <div> <b>Created : </b>{{confession.create}}</div>
+    <div> <b>Target : </b>{{confession.target}}</div>
+    <div> <b>Answer : </b>{{confession.answer}}</div>
+    <div> <b>Response : </b>{{confession.response}}</div>
+    <div> <b>Answer Date : </b>{{confession.answer_date}}</div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Update">
+    </form>
+
+</div>
+
+{% endblock content %}

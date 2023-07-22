@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Login, Register, ConfessionList, ConfessionUrl, CreateConfession, DeleteConfession
+from .views import Login, Register, ConfessionList, ConfessionUrl, CreateConfession, DeleteConfession, UpdateConfession
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -10,5 +10,7 @@ urlpatterns = [
     path('create/', CreateConfession.as_view(), name="confessionCreate"),
     path('delete/<str:pk>/', name="confessionDelete",
          view=DeleteConfession.as_view()),
+    path('update/<str:pk>/', name="confessionUpdate",
+         view=UpdateConfession.as_view()),
     path('<str:slug>/', ConfessionUrl.as_view(), name="confessionUrl")
 ]
